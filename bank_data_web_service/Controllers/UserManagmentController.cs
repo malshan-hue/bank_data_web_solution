@@ -13,11 +13,13 @@ namespace bank_data_web_service.Controllers
     {
         private readonly IUserService _userService;
         private readonly PBKDF2 _crypto;
+        private readonly Random _random;
 
 		public UserManagmentController(IUserService userService)
         {
             _userService = userService;
             _crypto = new PBKDF2();
+            _random = new Random();
         }
 
         [HttpPost("CreateUser")]
@@ -54,7 +56,7 @@ namespace bank_data_web_service.Controllers
                 UserName = userDTO.UserName,
                 Password = _crypto.Compute(userDTO.Password),
                 PasswordSalt = _crypto.Salt,
-                ActivationCode = 123456,
+                ActivationCode = _random.Next(100000, 1000000),
                 UserGlobalIdentity = userGlobalIdentity,
                 UserInformation = new UserInformation()
                 {
