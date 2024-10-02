@@ -51,6 +51,7 @@ namespace bank_data_web_service.Controllers
 				userProfileImageFileUri = Path.Combine("/Uploads/UserProfileImages", userProfileImageFileName).Replace("\\", "/");
 			}
 
+            //create user object
 			User user = new User()
             {
                 UserName = userDTO.UserName,
