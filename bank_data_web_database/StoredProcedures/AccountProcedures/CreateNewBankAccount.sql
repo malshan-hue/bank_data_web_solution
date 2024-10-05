@@ -15,4 +15,6 @@ BEGIN
 		[Balance] DECIMAL(18,2)
 	);
 
+	SET @executionStatus = 1;
+
 END

@@ -44,5 +44,104 @@ namespace bank_data_web_service.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpGet("GetAllBankAccounts")]
+        public async Task<IActionResult> GetAllBankAccounts()
+        {
+            try
+            {
+                var accounts = await _accountService.GetAllBankAccounts();
+
+                if(accounts == null)
+                {
+                    return NotFound("Accounts not found");
+                }
+
+                return Ok(accounts);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("GetAccountByAccountNumber")]
+        public async Task<IActionResult> GetAccountByAccountNumber(string accountNumber)
+        {
+            try
+            {
+                var account = await _accountService.GetBankAccountByAccountNumber(accountNumber);
+
+                if (account == null)
+                {
+                    return NotFound("Accounts not found");
+                }
+
+                return Ok(account);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("GetAccountsByHolderName")]
+        public async Task<IActionResult> GetAccountsByHolderName(string holderName)
+        {
+            try
+            {
+                var accounts = await _accountService.GetBankAccountByAccountHolderName(holderName);
+
+                if (accounts == null)
+                {
+                    return NotFound("Accounts not found");
+                }
+
+                return Ok(accounts);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPut("UpdateBankAccount")]
+        public async Task<IActionResult> UpdateBankAccount(AccountDTO accountDTO)
+        {
+            try
+            {
+                Account account = new Account()
+                {
+                    AccountId = accountDTO.AccountId,
+                    UserId = accountDTO.UserId,
+                    AccountNumber = accountDTO.AccountNumber,
+                    AccountHolderName = accountDTO.AccountHolderName,
+                    Balance = accountDTO.Balance,
+                };
+
+                var status = await _accountService.UpdateBankAccount(account);
+
+                return Ok(status);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpDelete("DeleteBankAccount")]
+        public async Task<IActionResult> DeleteBankAccount(string accountNumber)
+        {
+            try
+            {
+                var status = await _accountService.DeleteBankAccount(accountNumber);
+
+                return Ok(status);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

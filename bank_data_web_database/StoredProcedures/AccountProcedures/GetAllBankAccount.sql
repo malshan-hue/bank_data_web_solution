@@ -1,0 +1,12 @@
+﻿CREATE PROCEDURE [dbo].[GetAllBankAccount]
+	WITH ENCRYPTION
+AS
+BEGIN
+
+	SELECT A.*,
+		JSON_QUERY(ISNULL((SELECT UI.* FROM [UserInformation] UI WHERE UI.UserId = A.UserId FOR JSON PATH, WITHOUT_ARRAY_WRAPPER), '{}')) AS 'UserInformation'
+	FROM [Account] A
+	WHERE A.IsDeleted = 0
+	FOR JSON PATH
+
+END
