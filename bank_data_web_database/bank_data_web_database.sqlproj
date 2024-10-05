@@ -58,10 +58,17 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="StoredProcedures" />
+    <Folder Include="StoredProcedures\UserProcedures" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="StoredProcedures\CreateUser.sql" />
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\UserInformation.sql" />
+    <Build Include="StoredProcedures\UserProcedures\CreateUser.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="StoredProcedures\UserProcedures\DeleteUserByEmail.sql" />
+    <Build Include="StoredProcedures\UserProcedures\GetAllUsers.sql" />
+    <Build Include="StoredProcedures\UserProcedures\GetUserByEmail.sql" />
+    <Build Include="StoredProcedures\UserProcedures\UpdateUser.sql" />
   </ItemGroup>
 </Project>

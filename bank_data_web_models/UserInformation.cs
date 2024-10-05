@@ -18,5 +18,9 @@ namespace bank_data_web_models
         public string PictureUrl { get; set; } = string.Empty;
         public IFormFile? Picture { get; set; }
 
+        #region NAVIGATIONAL PROPERTIES
+        public ICollection<Account> Accounts { get; set; } = new List<Account>();
+        #endregion
+
     }
 }
