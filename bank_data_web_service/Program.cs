@@ -25,6 +25,7 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 
 #region Services
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+builder.Services.AddSingleton<IAccountService, AccountServiceImpl>();
 #endregion
 
 var app = builder.Build();

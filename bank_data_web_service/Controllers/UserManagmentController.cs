@@ -71,7 +71,13 @@ namespace bank_data_web_service.Controllers
             try
             {
                 bool status = await _userService.CreateUser(user);
-                return Ok(status);
+
+                if (!status)
+                {
+                    return Ok(status);
+                }
+
+                return StatusCode(201, status);
             }
             catch (Exception)
             {
