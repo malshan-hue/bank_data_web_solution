@@ -12,7 +12,7 @@ namespace bank_data_web_models
         public int AccountId { get; set; }
         public decimal Amount { get; set; }
         public DateTime TransactionDate { get; set; }
-        public TransactionType TransactionType { get; set; }
+        public TransactionTypeEnum TransactionTypeEnum { get; set; }
         public string Description { get; set; } = string.Empty;
 
         #region NAVIGATIONAL PROPERTIES

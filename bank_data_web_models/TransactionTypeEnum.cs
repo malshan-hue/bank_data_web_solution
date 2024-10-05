@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bank_data_web_models
 {
-    public enum TransactionType : int
+    public enum TransactionTypeEnum : int
     {
         Deposit = 1,
         Withdrawal = 2

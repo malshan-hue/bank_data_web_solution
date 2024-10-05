@@ -64,6 +64,9 @@
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\UserInformation.sql" />
     <Build Include="StoredProcedures\UserProcedures\CreateUser.sql" />
+    <Build Include="Tables\Account.sql" />
+    <Build Include="Tables\Transaction.sql" />
+    <Build Include="Tables\TransactionTypeEnum.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="StoredProcedures\UserProcedures\DeleteUserByEmail.sql" />
