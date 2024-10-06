@@ -1,6 +1,7 @@
 ﻿using bank_data_web_business_layer.Interfaces;
 using bank_data_web_data_access_layer;
 using bank_data_web_models;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,26 @@ namespace bank_data_web_business_layer
             string transactionJsonString = JsonConvert.SerializeObject(transaction);
             bool status = _transactionRepository.InsertData("CreateWithdrawal", transactionJsonString);
             return status;
+        }
+
+        public async Task<Transaction> GetTransactionDetails(int transactionId)
+        {
+            var transaction = _transactionRepository.RetrieveData("GetTransactionDetails", new SqlParameter[]
+            {
+                new SqlParameter("@transactionId", transactionId)
+            }).FirstOrDefault();
+
+            return transaction;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetTransactionDetailsByAccountNumber(string accountNumber)
+        {
+            var transaction = _transactionRepository.RetrieveData("GetTransactionDetailsByAccountNumber", new SqlParameter[]
+            {
+                new SqlParameter("@accountNumber", accountNumber)
+            });
+
+            return transaction;
         }
 
     }

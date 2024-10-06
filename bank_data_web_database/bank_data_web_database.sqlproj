@@ -77,6 +77,8 @@
     <Build Include="StoredProcedures\AccountProcedures\DeleteBankAccount.sql" />
     <Build Include="StoredProcedures\TransactionProcedures\CreateDeposit.sql" />
     <Build Include="StoredProcedures\TransactionProcedures\CreateWithdrawal.sql" />
+    <Build Include="StoredProcedures\TransactionProcedures\GetTransactionDetails.sql" />
+    <Build Include="StoredProcedures\TransactionProcedures\GetTransactionDetailsByAccountNumber.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="StoredProcedures\UserProcedures\DeleteUserByEmail.sql" />

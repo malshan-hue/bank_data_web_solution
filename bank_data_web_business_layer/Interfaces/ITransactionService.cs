@@ -11,5 +11,7 @@ namespace bank_data_web_business_layer.Interfaces
     {
         Task<bool> CreateDeposit(Transaction transaction);
         Task<bool> CreateWithdrawal(Transaction transaction);
+        Task<Transaction> GetTransactionDetails(int transactionId);
+        Task<IEnumerable<Transaction>> GetTransactionDetailsByAccountNumber(string accountNumber);
     }
 }

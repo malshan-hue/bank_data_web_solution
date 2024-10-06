@@ -72,5 +72,45 @@ namespace bank_data_web_service.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpGet("GetTransactionDetailsByAccountNumber")]
+        public async Task<IActionResult> GetTransactionDetailsByAccountNumber(string accountNumber)
+        {
+            try
+            {
+                var account = await _transactionService.GetTransactionDetailsByAccountNumber(accountNumber);
+
+                if (account == null)
+                {
+                    return NotFound("transaction not found");
+                }
+
+                return Ok(account);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("GetTransactionDetails")]
+        public async Task<IActionResult> GetTransactionDetails(int transactionNumber)
+        {
+            try
+            {
+                var transaction = await _transactionService.GetTransactionDetails(transactionNumber);
+
+                if (transaction == null)
+                {
+                    return NotFound("transaction not found");
+                }
+
+                return Ok(transaction);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
