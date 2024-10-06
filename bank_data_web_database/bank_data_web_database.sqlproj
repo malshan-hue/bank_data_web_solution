@@ -60,6 +60,7 @@
     <Folder Include="StoredProcedures" />
     <Folder Include="StoredProcedures\UserProcedures" />
     <Folder Include="StoredProcedures\AccountProcedures" />
+    <Folder Include="StoredProcedures\TransactionProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\User.sql" />
@@ -74,6 +75,8 @@
     <Build Include="StoredProcedures\AccountProcedures\GetAllBankAccount.sql" />
     <Build Include="StoredProcedures\AccountProcedures\UpdateBankAccount.sql" />
     <Build Include="StoredProcedures\AccountProcedures\DeleteBankAccount.sql" />
+    <Build Include="StoredProcedures\TransactionProcedures\CreateDeposit.sql" />
+    <Build Include="StoredProcedures\TransactionProcedures\CreateWithdrawal.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="StoredProcedures\UserProcedures\DeleteUserByEmail.sql" />
