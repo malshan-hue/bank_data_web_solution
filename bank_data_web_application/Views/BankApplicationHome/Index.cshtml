@@ -1,0 +1,118 @@
+﻿
+@{
+	Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<div class="container-fluid p-0">
+
+	<h1 class="h3 mb-3 text-center">Welcome to Bank Web Application</h1>
+
+	<div class="row">
+
+		<!--calendar-->
+		<div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+			<div class="card flex-fill">
+				<div class="card-header">
+
+					<h5 class="card-title mb-0">Calendar</h5>
+				</div>
+				<div class="card-body d-flex">
+					<div class="align-self-center w-100">
+						<div class="chart">
+							<div id="datetimepicker-dashboard"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--chart-->
+		<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
+			<div class="card flex-fill w-100">
+				<div class="card-header">
+
+					<h5 class="card-title mb-0">Transaction Summary</h5>
+				</div>
+				<div class="card-body d-flex">
+					<div class="align-self-center w-100">
+						<div class="py-3">
+							<div class="chart chart-xs">
+								<canvas id="chartjs-dashboard-pie"></canvas>
+							</div>
+						</div>
+
+						<table class="table mb-0">
+							<tbody>
+								<tr>
+									<td>Chrome</td>
+									<td class="text-end">4306</td>
+								</tr>
+								<tr>
+									<td>Firefox</td>
+									<td class="text-end">3801</td>
+								</tr>
+								<tr>
+									<td>IE</td>
+									<td class="text-end">1689</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+@section Scripts{
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+
+			$("#datetimepicker-dashboard").flatpickr({
+				inline: true,
+				prevArrow: "<span title='Previous month'>&laquo;</span>",
+				nextArrow: "<span title='Next month'>&raquo;</span>",
+				defaultDate: defaultDate
+			});
+		});
+
+		$(document).ready(function () {
+
+			new Chart($("#chartjs-dashboard-pie")[0], {
+				type: "pie",
+				data: {
+					labels: ["Chrome", "Firefox", "IE"],
+					datasets: [{
+						data: [4306, 3801, 1689],
+						backgroundColor: [
+							window.theme.primary,
+							window.theme.warning,
+							window.theme.danger
+						],
+						borderWidth: 5
+					}]
+				},
+				options: {
+					responsive: !window.MSInputMethodContext,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					cutoutPercentage: 75
+				}
+			});
+		});
+
+
+	</script>
+}

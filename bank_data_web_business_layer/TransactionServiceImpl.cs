@@ -55,5 +55,37 @@ namespace bank_data_web_business_layer
             return transaction;
         }
 
-    }
+        public class TransferModel
+        {
+            public int FromAccountId { get; set; }
+            public string ToAccountNumber { get; set; }
+            public double Amount { get; set; }
+        }
+
+        public async Task<bool> CreateTransfer(int fromAccountId, string toAccountNumber, double amount)
+        {
+
+            var transfer = new TransferModel()
+            {
+                FromAccountId = fromAccountId,
+                ToAccountNumber = toAccountNumber,
+                Amount = amount
+            };
+
+            string transferJsonString = JsonConvert.SerializeObject(transfer);
+            bool status = _transactionRepository.InsertData("CreateTransfer", transferJsonString);
+            return status;
+        }
+
+		public async Task<IEnumerable<Transaction>> GetTransactionDetailsByAccountId(int accountId)
+		{
+			var transaction = _transactionRepository.RetrieveData("GetTransactionDetailsByAccountId", new SqlParameter[]
+			{
+				new SqlParameter("@accountId", accountId)
+			});
+
+			return transaction;
+		}
+
+	}
 }

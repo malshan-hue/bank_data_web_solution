@@ -9,6 +9,7 @@ namespace bank_data_web_models
     public enum TransactionTypeEnum : int
     {
         Deposit = 1,
-        Withdrawal = 2
+        Withdrawal = 2,
+        Transfer = 3,
     }
 }

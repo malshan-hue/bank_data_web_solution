@@ -1,0 +1,43 @@
+﻿@using bank_data_web_models
+
+@model User
+
+@{
+	Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="text-center mt-4">
+	<h1 class="h2">Welcome back!</h1>
+	<p class="lead">
+		Sign in to your account to continue
+	</p>
+</div>
+
+<div class="card">
+	<div class="card-body">
+		<div class="m-sm-3">
+			<form asp-action="Login" asp-controller="User" method="post" id="login-form">
+				<div class="mb-3">
+					<label class="form-label" asp-for="UserName">Email</label>
+					<input class="form-control form-control-lg" type="email" asp-for="UserName" name="UserName" placeholder="Enter your user name" />
+				</div>
+				<div class="mb-3">
+					<label class="form-label" asp-for="Password">Password</label>
+					<input class="form-control form-control-lg" type="password" asp-for="Password" name="Password" placeholder="Enter your password" />
+				</div>
+				<div>
+					<div class="form-check align-items-center">
+						<input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked>
+						<label class="form-check-label text-small" for="customControlInline">Remember me</label>
+					</div>
+				</div>
+				<div class="d-grid gap-2 mt-3">
+					<button class="btn btn-lg btn-primary" type="submit">Log in</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="text-center mb-3">
+	Don't have an account? <a href="pages-sign-up.html">Register</a>
+</div>

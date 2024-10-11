@@ -143,5 +143,25 @@ namespace bank_data_web_service.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-    }
+
+		[HttpGet("GetAccountsByUser")]
+		public async Task<IActionResult> GetAccountsByUser(int userId)
+		{
+			try
+			{
+				var accounts = await _accountService.GetBankAccountByUser(userId);
+
+				if (accounts == null)
+				{
+					return NotFound("Accounts not found");
+				}
+
+				return Ok(accounts);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal server error");
+			}
+		}
+	}
 }

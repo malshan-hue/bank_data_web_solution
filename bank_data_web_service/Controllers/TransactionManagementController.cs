@@ -112,5 +112,46 @@ namespace bank_data_web_service.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-    }
+
+        [HttpPost("CreateTransfer")]
+        public async Task<IActionResult> CreateTransfer(int fromAccountId, string toAccountNumber, double amount)
+        {
+			try
+			{
+
+				var status = await _transactionService.CreateTransfer(fromAccountId, toAccountNumber, amount);
+
+				if (!status)
+				{
+					return Ok(status);
+				}
+
+				return StatusCode(201, status);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal server error");
+			}
+		}
+
+		[HttpGet("GetTransactionDetailsByAccountId")]
+		public async Task<IActionResult> GetTransactionDetailsByAccountId(int accountId)
+		{
+			try
+			{
+				var account = await _transactionService.GetTransactionDetailsByAccountId(accountId);
+
+				if (account == null)
+				{
+					return NotFound("transaction not found");
+				}
+
+				return Ok(account);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal server error");
+			}
+		}
+	}
 }

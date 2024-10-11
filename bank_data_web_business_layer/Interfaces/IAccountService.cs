@@ -15,6 +15,8 @@ namespace bank_data_web_business_layer.Interfaces
         Task<IEnumerable<Account>> GetAllBankAccounts();
         Task<bool> UpdateBankAccount(Account account);
         Task<bool> DeleteBankAccount(string accountNumber);
+        Task<IEnumerable<Account>> GetBankAccountByUser(int userId);
 
-    }
+
+	}
 }

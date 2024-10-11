@@ -13,5 +13,8 @@ namespace bank_data_web_business_layer.Interfaces
         Task<bool> CreateWithdrawal(Transaction transaction);
         Task<Transaction> GetTransactionDetails(int transactionId);
         Task<IEnumerable<Transaction>> GetTransactionDetailsByAccountNumber(string accountNumber);
-    }
+        Task<bool> CreateTransfer(int fromAccountId, string toAccountNumber, double amount);
+        Task<IEnumerable<Transaction>> GetTransactionDetailsByAccountId(int accountId);
+
+	}
 }

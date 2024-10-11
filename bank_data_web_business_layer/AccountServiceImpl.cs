@@ -71,5 +71,14 @@ namespace bank_data_web_business_layer
 
             return status;
         }
-    }
+
+		public async Task<IEnumerable<Account>> GetBankAccountByUser(int userId)
+		{
+			var accounts = _accountRepository.RetrieveData("GetBankAccountByUser", new SqlParameter[]{
+				new SqlParameter("@userId", userId)
+			});
+
+			return accounts;
+		}
+	}
 }

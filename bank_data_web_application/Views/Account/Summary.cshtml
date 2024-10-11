@@ -1,0 +1,29 @@
+﻿@using bank_data_web_models
+@model IEnumerable<Account>
+
+@{
+	Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+<div class="container-fluid p-0">
+	<h1 class="h3 mb-3">Account Summary</h1>
+
+	<div class="row">
+
+		@foreach(var account in Model)
+		{
+			<div class="col-4 col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title mb-0">@account.AccountNumber</h5>
+					</div>
+					<div class="card-body">
+						<p class="card-text">Current Balance @account.Balance</p>
+						<a href="#" class="btn btn-primary">View Transactions</a>
+					</div>
+				</div>
+			</div>
+		}
+		
+	</div>
+</div>
