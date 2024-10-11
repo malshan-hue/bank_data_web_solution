@@ -84,6 +84,7 @@
     <Build Include="StoredProcedures\TransactionProcedures\GetAllTransactions.sql" />
     <Build Include="StoredProcedures\AccountProcedures\GetBankAccountByAccountId.sql" />
     <Build Include="StoredProcedures\TransactionProcedures\CreateTransfer.sql" />
+    <Build Include="StoredProcedures\TransactionProcedures\GetALLTransactionsForAdmin.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="StoredProcedures\UserProcedures\DeleteUserByEmail.sql" />

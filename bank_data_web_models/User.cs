@@ -24,8 +24,10 @@ namespace bank_data_web_models
 
         [DefaultValue("false")]
         public bool IsDeleted { get; set; }
-        
-        public Guid UserGlobalIdentity { get; set; }
+		[DefaultValue("false")]
+		public bool IsAdmin { get; set; }
+
+		public Guid UserGlobalIdentity { get; set; }
 
         #region NAVIGATIONAL PROPERTIES
         public UserInformation UserInformation { get; set; }

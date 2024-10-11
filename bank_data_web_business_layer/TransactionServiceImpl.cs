@@ -101,5 +101,15 @@ namespace bank_data_web_business_layer
             return transactions;
 		}
 
-	}
+        public async Task<IEnumerable<Transaction>> GetALLTransactionsForAdmin(DateTime? fromDate, DateTime? toDate)
+        {
+            var transactions = _transactionRepository.RetrieveData("GetALLTransactionsForAdmin", new SqlParameter[]
+            {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate)
+            });
+            return transactions;
+        }
+
+    }
 }

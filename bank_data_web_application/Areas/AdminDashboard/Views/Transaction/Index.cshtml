@@ -2,61 +2,60 @@
 @model IEnumerable<Transaction>
 
 @{
-	Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
 
 <div class="container-fluid p-0">
-	<h1 class="h3 mb-3 text-center">Transaction History</h1>
+    <h1 class="h3 mb-3 text-center">Transaction History</h1>
 
-	<div class="row">
-		<div class="col-12 col-md-12 text-center">
-			<div class="card">
-				<div class="card-body">
-					<div class="row mb-4">
-						<div class="col-6">
-							<label class="form-label">From Date</label>
+    <div class="row">
+        <div class="col-12 col-md-12 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <label class="form-label">From Date</label>
                             <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="From Date">
-						</div>
-						<div class="col-6">
-							<label class="form-label">To Date</label>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">To Date</label>
                             <input type="date" class="form-control" id="toDate" name="toDate" placeholder="To Date">
-						</div>
-					</div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12 text-center">
                             <button id="loadTransactions" class="btn btn-primary">Load Transactions</button>
                         </div>
                     </div>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="row">
-		<div class="col-12 col-lg-12 col-xxl-12">
-			<div class="card flex-fill">
-				<div class="card-header">
+    <div class="row">
+        <div class="col-12 col-lg-12 col-xxl-12">
+            <div class="card flex-fill">
+                <div class="card-header">
 
-					<h5 class="card-title mb-0">Transaction History</h5>
-				</div>
-				<table class="table table-hover my-0">
-					<thead>
-						<tr>
-							<th>Account</th>
-							<th>Amount</th>
-							<th class="d-none d-xl-table-cell">Transaction Date</th>
-							<th>Transaction Type</th>
-							<th>Description</th>
-						</tr>
-					</thead>
+                    <h5 class="card-title mb-0">Transaction History</h5>
+                </div>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Amount</th>
+                            <th class="d-none d-xl-table-cell">Transaction Date</th>
+                            <th>Transaction Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
                     <tbody id="transactionTableBody">
-
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -81,7 +80,7 @@
                 }
 
                 $.ajax({
-                    url: '@Url.Action("LoadTransactionData", "Transaction")',
+                    url: '@Url.Action("LoadTransactionData", "Transaction", new { area = "AdminDashboard" })',
                     type: 'POST',
                     data: {
                         fromDate: fromDate,

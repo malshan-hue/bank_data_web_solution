@@ -42,6 +42,7 @@ namespace bank_data_web_application.Controllers
 						HttpContext.Session.SetString("Name", userResult.UserInformation.Name);
 						HttpContext.Session.SetString("Email", userResult.UserInformation.Email);
 						HttpContext.Session.SetString("pictureUrl", userResult.UserInformation.PictureUrl);
+						HttpContext.Session.SetString("IsAdmin", userResult.IsAdmin.ToString());
 
 						var claims = new List<Claim>
 						{
@@ -57,6 +58,12 @@ namespace bank_data_web_application.Controllers
 							IsPersistent = true,
 							ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
 						});
+
+						if (userResult.IsAdmin)
+						{
+							return RedirectToAction("Index", "Dashboard", new { area = "AdminDashboard" });
+
+						}
 
 						return RedirectToAction("Index", "BankApplicationHome");
 					}
@@ -104,8 +111,9 @@ namespace bank_data_web_application.Controllers
                     HttpContext.Session.SetString("Name", userResult.UserInformation.Name);
                     HttpContext.Session.SetString("Email", userResult.UserInformation.Email);
                     HttpContext.Session.SetString("pictureUrl", userResult.UserInformation.PictureUrl);
+					HttpContext.Session.SetString("IsAdmin", userResult.IsAdmin.ToString());
 
-                    var claims = new List<Claim>
+					var claims = new List<Claim>
 					{
 						new Claim(ClaimTypes.Name, userResult.UserName),
 						new Claim(ClaimTypes.Email, userResult.UserInformation.Email),
@@ -119,6 +127,12 @@ namespace bank_data_web_application.Controllers
 						IsPersistent = true,
 						ExpiresUtc = DateTime.UtcNow.AddMinutes(30) 
 					});
+
+					if (userResult.IsAdmin)
+					{
+						return RedirectToAction("Index", "Dashboard", new { area = "AdminDashboard" });
+
+					}
 
 					return RedirectToAction("Index", "BankApplicationHome");
 				}

@@ -173,5 +173,25 @@ namespace bank_data_web_service.Controllers
 				return StatusCode(500, "Internal server error");
 			}
 		}
-	}
+
+        [HttpGet("GetALLTransactionsForAdmin")]
+        public async Task<IActionResult> GetALLTransactionsForAdmin(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                var transactions = await _transactionService.GetALLTransactionsForAdmin(fromDate, toDate);
+
+                if (transactions == null)
+                {
+                    return NotFound("transaction not found");
+                }
+
+                return Ok(transactions);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+    }
 }

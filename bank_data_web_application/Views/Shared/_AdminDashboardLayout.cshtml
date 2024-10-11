@@ -1,1 +1,136 @@
-﻿
+﻿@using bank_data_web_application.Helpers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+	var pictureUrl = HttpContextAccessor.HttpContext.Session.GetString("pictureUrl");
+	if (pictureUrl is null)
+	{
+		pictureUrl = "";
+	}
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="~/assets/img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
+
+	<title>Bank Data Web App</title>
+
+	<link href="~/assets/css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+					<span class="align-middle">Bank Data Web App</span>
+				</a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Admin Dashboard
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" asp-action="Profile" asp-controller="Dashboard" asp-area="AdminDashboard">
+							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Your Profile</span>
+						</a>
+					</li>
+
+					<li class="sidebar-header">
+						User Managment
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" asp-action="CreateNewUser" asp-controller="UserManagement" asp-area="AdminDashboard">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus align-middle me-2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+							<span class="align-middle">Create users</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" asp-action="Index" asp-controller="UserManagement" asp-area="AdminDashboard">	
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user align-middle me-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+							<span class="align-middle">Registered Users</span>
+						</a>
+					</li>
+
+					<li class="sidebar-header">
+						Transactions
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" asp-action="Index" asp-controller="Transaction" asp-area="AdminDashboard">
+							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Transaction History</span>
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+					<i class="hamburger align-self-center"></i>
+				</a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+								<i class="align-middle" data-feather="settings"></i>
+							</a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+								<img src="@GlobalStaticHelper.baseApiUrl@pictureUrl" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" asp-action="Profile" asp-controller="Dashboard" asp-area="AdminDashboard"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" asp-action="Profile" asp-controller="Dashboard" asp-area="AdminDashboard"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" asp-action="Logout" asp-controller="User" asp-area="">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content">
+				@RenderBody()
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a class="text-muted" href="javascript:void(0)" target="_blank"><strong>Bank</strong></a> - <a class="text-muted" href="javascript:void(0)" target="_blank"><strong>Web Application</strong></a>&copy;
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="~/assets/js/app.js"></script>
+	@await RenderSectionAsync("Scripts", required: true)
+
+</body>
+
+</html>

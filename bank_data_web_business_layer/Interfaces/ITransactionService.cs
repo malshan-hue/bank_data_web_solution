@@ -16,6 +16,7 @@ namespace bank_data_web_business_layer.Interfaces
         Task<bool> CreateTransfer(int fromAccountId, string toAccountNumber, double amount, string description);
         Task<IEnumerable<Transaction>> GetTransactionDetailsByAccountId(int accountId);
         Task<IEnumerable<Transaction>> GetAllTransactions(int userId, DateTime? fromDate, DateTime? toDate);
+        Task<IEnumerable<Transaction>> GetALLTransactionsForAdmin(DateTime? fromDate, DateTime? toDate);
 
 	}
 }
