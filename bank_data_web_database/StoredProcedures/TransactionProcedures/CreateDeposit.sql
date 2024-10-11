@@ -5,8 +5,8 @@
 AS
 BEGIN
 
-	INSERT INTO [Transaction]([AccountId], [Amount], [TransactionDate], [TransactionTypeEnum], [Description])
-	SELECT [AccountId], [Amount], GETUTCDATE(), [TransactionTypeEnum], [Description]
+	INSERT INTO [Transaction]([AccountId], [Amount], [TransactionDate], [TransactionTypeEnum], [Description], [InitiatedAccountId])
+	SELECT [AccountId], [Amount], GETUTCDATE(), [TransactionTypeEnum], [Description], [AccountId]
 	FROM OPENJSON(@jsonString, '$')
 	WITH(
 		[AccountId] INT,

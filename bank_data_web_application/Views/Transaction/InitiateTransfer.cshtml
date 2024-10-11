@@ -1,0 +1,87 @@
+﻿@using bank_data_web_models
+@model Account
+
+@{
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+
+<div class="container-fluid p-0">
+    <h1 class="h3 mb-3 text-center">Initiate Transfer from @Model.AccountNumber account</h1>
+
+    <div class="row">
+        <div class="col-12 col-md-12 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <label class="form-label">Enter account number</label>
+                            <input type="text" class="form-control" id="toAccountNumber" name="toAccountNumber" placeholder="To Account Number">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Amount</label>
+                            <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount">
+                        </div>
+                        <div class="col-12 mt-4">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" id="description" name="description" placeholder="Description">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button id="transferButton" class="btn btn-primary">Transfer Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#transferButton').click(function () {
+                var fromAccountId = '@Model.AccountId'; // Get from Account model
+                var toAccountNumber = $('#toAccountNumber').val();
+                var amount = $('#amount').val();
+                var description = $('#description').val();
+
+                // Validate input fields
+                if (toAccountNumber === '' || amount === '' || description === '') {
+                    Swal.fire('Error', 'All fields are required', 'error');
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("InitiateTransfer", "Transaction")',
+                    type: 'POST',
+                    data: {
+                        fromAccountId: fromAccountId,
+                        toAccountNumber: toAccountNumber,
+                        amount: amount,
+                        description: description
+                    },
+                    success: function (response) {
+                        if (response.data === true) {
+                            Swal.fire('Success', 'Transfer completed successfully!', 'success');
+                            location.href = '@Url.Action("TransferMoney", "Transaction")'
+                        } else {
+                            Swal.fire('Error', 'Transfer failed. Please try again.', 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Error', 'An error occurred while processing the transfer', 'error');
+                    }
+                });
+            });
+        });
+    </script>
+}

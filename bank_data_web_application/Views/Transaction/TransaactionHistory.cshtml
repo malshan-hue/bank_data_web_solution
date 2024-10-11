@@ -1,0 +1,137 @@
+﻿@using bank_data_web_models
+@model IEnumerable<Transaction>
+
+@{
+	Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+
+<div class="container-fluid p-0">
+	<h1 class="h3 mb-3 text-center">Transaction History</h1>
+
+	<div class="row">
+		<div class="col-12 col-md-12 text-center">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mb-4">
+						<div class="col-6">
+							<label class="form-label">From Date</label>
+                            <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="From Date">
+						</div>
+						<div class="col-6">
+							<label class="form-label">To Date</label>
+                            <input type="date" class="form-control" id="toDate" name="toDate" placeholder="To Date">
+						</div>
+					</div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button id="loadTransactions" class="btn btn-primary">Load Transactions</button>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12 col-lg-12 col-xxl-12">
+			<div class="card flex-fill">
+				<div class="card-header">
+
+					<h5 class="card-title mb-0">Transaction History</h5>
+				</div>
+				<table class="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Account</th>
+							<th>Amount</th>
+							<th class="d-none d-xl-table-cell">Transaction Date</th>
+							<th>Transaction Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+                    <tbody id="transactionTableBody">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#loadTransactions').click(function () {
+                var fromDate = $('#fromDate').val();
+                var toDate = $('#toDate').val();
+
+                if (fromDate === '' || toDate === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'error',
+                        text: 'Please select both dates',
+                        confirmButtonText: 'Try Again'
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("LoadTransactionData", "Transaction")',
+                    type: 'POST',
+                    data: {
+                        fromDate: fromDate,
+                        toDate: toDate
+                    },
+                    success: function (response) {
+                        // Clear existing rows
+                        $('#transactionTableBody').empty();
+
+                        if (response.length === 0) {
+                            $('#transactionTableBody').append('<tr><td colspan="5" class="text-center">No transactions found</td></tr>');
+                        } else {
+                            // Append each transaction row to the table
+                            $.each(response, function (index, transaction) {
+                                // Determine badge color based on TransactionTypeEnum
+                                var badgeClass = '';
+                                var transactionTypeEnum = '';
+                                if (transaction.transactionTypeEnum === 1) {
+                                    badgeClass = 'bg-success';
+                                    transactionTypeEnum = 'Deposit'
+                                } else if (transaction.transactionTypeEnum === 2) {
+                                    badgeClass = 'bg-danger';
+                                    transactionTypeEnum = 'Withdrawal';
+                                } else {
+                                    badgeClass = 'bg-primary';
+                                    transactionTypeEnum = 'Transfer';
+                                }
+
+                                var date = new Date(transaction.transactionDate);
+                                var formattedDate = date.toLocaleDateString(); // Get date part
+                                var formattedTime = date.toLocaleTimeString(); // Get time part
+
+                                var row = '<tr>' +
+                                    '<td>' + transaction.account.accountNumber + '</td>' +
+                                    '<td><span class="badge ' + badgeClass + '">' + transaction.amount.toFixed(2) + '</span></td>' +
+                                    '<td class="d-none d-xl-table-cell">' + formattedDate + ' ' + formattedTime + '</td>' +
+                                    '<td><span class="badge bg-success">' + transactionTypeEnum + '</span></td>' +
+                                    '<td class="d-none d-md-table-cell">' + transaction.description + '</td>' +
+                                    '</tr>';
+
+                                $('#transactionTableBody').append(row);
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert('Error retrieving transactions');
+                    }
+                });
+            });
+        });
+    </script>
+
+}

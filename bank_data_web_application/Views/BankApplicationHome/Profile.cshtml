@@ -45,7 +45,6 @@
 
 					<form asp-action="Profile" asp-controller="BankApplicationHome" id="profile-form" method="post" data-ajax="true" data-ajax-begin="updateProfileBegin" data-ajax-complete="updateProfileComplete" data-ajax-failure="updateProfileFailure" enctype="multipart/form-data">
 						@Html.HiddenFor(e => e.UserId)
-						@Html.HiddenFor(e => e.Password)
 						<div class="row mb-4">
 							<div class="col-6">
 								<label asp-for="UserName" class="form-label">User Name</label>

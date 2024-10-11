@@ -114,12 +114,12 @@ namespace bank_data_web_service.Controllers
         }
 
         [HttpPost("CreateTransfer")]
-        public async Task<IActionResult> CreateTransfer(int fromAccountId, string toAccountNumber, double amount)
+        public async Task<IActionResult> CreateTransfer(int fromAccountId, string toAccountNumber, double amount, string description)
         {
 			try
 			{
 
-				var status = await _transactionService.CreateTransfer(fromAccountId, toAccountNumber, amount);
+				var status = await _transactionService.CreateTransfer(fromAccountId, toAccountNumber, amount, description);
 
 				if (!status)
 				{
@@ -147,6 +147,26 @@ namespace bank_data_web_service.Controllers
 				}
 
 				return Ok(account);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal server error");
+			}
+		}
+
+		[HttpGet("GetALLTransactions")]
+		public async Task<IActionResult> GetALLTransactions(int userId, DateTime fromDate, DateTime toDate)
+		{
+			try
+			{
+				var transactions = await _transactionService.GetAllTransactions(userId, fromDate, toDate);
+
+				if (transactions == null)
+				{
+					return NotFound("transaction not found");
+				}
+
+				return Ok(transactions);
 			}
 			catch (Exception)
 			{

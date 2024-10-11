@@ -10,6 +10,7 @@ BEGIN
 		FROM [Account] A WHERE A.AccountId = T.AccountId FOR JSON PATH, WITHOUT_ARRAY_WRAPPER), '{}')) AS 'Account'
 	FROM [Transaction] T
 	WHERE [TransactionId] = @transactionId
+	ORDER BY T.TransactionId DESC
 	FOR JSON PATH
 
 END

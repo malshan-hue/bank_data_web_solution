@@ -5,7 +5,8 @@
 	[Amount] DECIMAL(18,2) NOT NULL,
 	[TransactionDate] DATETIME NOT NULL,
 	[TransactionTypeEnum] INT NOT NULL,
-	[Description] NVARCHAR(MAX) NULL
+	[Description] NVARCHAR(MAX) NULL,
+	[InitiatedAccountId] INT NULL
 
 	CONSTRAINT [Transaction_TransactionId_PK] PRIMARY KEY ([TransactionId]),
 	CONSTRAINT [Transaction_AccountId_FK] FOREIGN KEY ([AccountId]) REFERENCES [Account]([AccountId]),

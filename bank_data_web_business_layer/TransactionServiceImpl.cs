@@ -2,6 +2,7 @@
 using bank_data_web_data_access_layer;
 using bank_data_web_models;
 using Microsoft.Data.SqlClient;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -60,16 +61,18 @@ namespace bank_data_web_business_layer
             public int FromAccountId { get; set; }
             public string ToAccountNumber { get; set; }
             public double Amount { get; set; }
+            public string Description { get; set; }
         }
 
-        public async Task<bool> CreateTransfer(int fromAccountId, string toAccountNumber, double amount)
+        public async Task<bool> CreateTransfer(int fromAccountId, string toAccountNumber, double amount, string description)
         {
 
             var transfer = new TransferModel()
             {
                 FromAccountId = fromAccountId,
                 ToAccountNumber = toAccountNumber,
-                Amount = amount
+                Amount = amount,
+                Description = description
             };
 
             string transferJsonString = JsonConvert.SerializeObject(transfer);
@@ -85,6 +88,17 @@ namespace bank_data_web_business_layer
 			});
 
 			return transaction;
+		}
+
+        public async Task<IEnumerable<Transaction>> GetAllTransactions(int userId, DateTime? fromDate, DateTime? toDate)
+        {
+			var transactions = _transactionRepository.RetrieveData("GetAllTransactions", new SqlParameter[]
+            {
+                new SqlParameter("@userId", userId),
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate)
+            });
+            return transactions;
 		}
 
 	}

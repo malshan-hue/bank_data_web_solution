@@ -6,10 +6,10 @@
 }
 
 <div class="container-fluid p-0">
-	<h1 class="h3 mb-3">Account Summary</h1>
+	<h1 class="h3 mb-3">Select your account to initiate transfer</h1>
 
 	<div class="row">
-		@if(Model.Count() != 0)
+		@if (Model.Count() != 0)
 		{
 			@foreach (var account in Model)
 			{
@@ -21,7 +21,7 @@
 						</div>
 						<div class="card-body">
 							<p class="card-text">Current Balance @account.Balance</p>
-							<a href="@Url.Action("ViewTransactions", "Account", new {accountId = account.AccountId})" class="btn btn-primary">View Transactions</a>
+							<a href="@Url.Action("InitiateTransfer", "Transaction", new {accountId = account.AccountId})" class="btn btn-primary">Select</a>
 						</div>
 					</div>
 				</div>
@@ -29,13 +29,13 @@
 		}
 		else
 		{
-			<h1 class="h3 mb-3">There are no Account Summary</h1>
+			<h1 class="h3 mb-3">There are no Accounts</h1>
 		}
 
-		
+
 	</div>
 </div>
 
-@section Scripts{
+@section Scripts {
 
 }

@@ -27,6 +27,12 @@ namespace bank_data_web_application.Controllers
 				if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
 					var accountResult = JsonConvert.DeserializeObject<IEnumerable<Account>>(response.Content);
+
+					if(accountResult.Count() == 0)
+					{
+						return View(new List<Account>());
+					}
+
                     return View(accountResult);
 				}
 			}

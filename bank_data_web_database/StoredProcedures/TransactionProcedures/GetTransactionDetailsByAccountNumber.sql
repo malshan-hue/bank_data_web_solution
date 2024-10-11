@@ -10,7 +10,8 @@ BEGIN
 		FROM [Account] A WHERE A.AccountId = T.AccountId FOR JSON PATH, WITHOUT_ARRAY_WRAPPER), '{}')) AS 'Account'
 	FROM [Transaction] T
 	INNER JOIN [Account] A ON A.AccountId = T.AccountId
-	WHERE A.AccountNumber = @accountNumber
+	WHERE A.AccountNumber = @accountNumber OR T.InitiatedAccountId = (SELECT AccountId FROM Account WHERE AccountNumber = @accountNumber)
+	ORDER BY T.TransactionId DESC
 	FOR JSON PATH
 
 END
