@@ -12,8 +12,7 @@ BEGIN
 		FROM [Account] A WHERE A.AccountId = T.AccountId FOR JSON PATH, WITHOUT_ARRAY_WRAPPER), '{}')) AS 'Account'
 	FROM [Transaction] T
 	WHERE CAST(T.TransactionDate AS DATE) >= CAST(@fromDate AS DATE) AND CAST(T.TransactionDate AS DATE) <= CAST(@toDate AS DATE)
-			AND T.AccountId = (SELECT AccountId FROM Account WHERE UserId = @userId)
-		OR T.InitiatedAccountId = (SELECT AccountId FROM Account WHERE UserId = @userId)
+			AND (T.AccountId = (SELECT AccountId FROM Account WHERE UserId = @userId) OR T.InitiatedAccountId = (SELECT AccountId FROM Account WHERE UserId = @userId))
 	ORDER BY T.TransactionId DESC
 	FOR JSON PATH
 
